@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'ee.neotech'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = 'ee.neotech.App'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'commons-cli:commons-cli:1.4'
+    compile 'mysql:mysql-connector-java:5.1.6'
+    compile 'org.hibernate:hibernate-core:5.2.8.Final'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+    testCompile 'org.powermock:powermock-mockito-release-full:1.5.4'
+
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+run {
+    args project.hasProperty('args') ? project.args.split("\\s") : ''
+    println "args = $args"
+}
+
+test {
+    useJUnitPlatform()
+}
